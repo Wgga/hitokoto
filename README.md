@@ -2,7 +2,7 @@
 
 ## 说明
 
-此处只进行存储供本人使用，感兴趣者请前往[原作者 lxyddice](https://github.com/lxyddice)的[hitokoto](https://github.com/lxyddice/hitokoto) Public
+本库fork于`lxyddice` 的 `hitokoto`, 本库只进行存储供本人使用，不提供API，如需API请前往[原作者 lxyddice](https://github.com/lxyddice)的 [hitokoto](https://github.com/lxyddice/hitokoto) Public
 
 基于[https://github.com/hitokoto-osc/sentences-bundle](https://github.com/hitokoto-osc/sentences-bundle)的php版，快速部署
 
