@@ -1,4 +1,12 @@
 <?php
+// 设置指定域名跨越
+$origin = ['https://artisticcode.cn','https://www.artisticcode.cn'];
+$AllowOrigin = '';
+if(in_array($_SERVER["HTTP_ORIGIN"],$origin))
+{
+    $AllowOrigin = $_SERVER["HTTP_ORIGIN"];
+}
+header("Access-Control-Allow-Origin: ".$AllowOrigin);
 // 从文件中获取JSON数据并解析为PHP数组
 $jsonData = file_get_contents('sentences/version.json');
 $data = json_decode($jsonData, true);
