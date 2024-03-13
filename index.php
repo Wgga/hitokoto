@@ -1,12 +1,18 @@
 <?php
-// 设置指定域名跨越
-$origin = ['https://artisticcode.cn','https://www.artisticcode.cn'];
-$AllowOrigin = '';
-if(in_array($_SERVER["HTTP_ORIGIN"],$origin))
-{
-    $AllowOrigin = $_SERVER["HTTP_ORIGIN"];
+// 定义允许访问的Origin列表
+$allowedOrigins = array('https://artisticcode.cn','https://www.artisticcode.cn');
+
+// 获取请求的Origin
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+
+// 检查请求的Origin是否在允许列表中
+if (in_array($origin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: " . $origin);
+} else {
+    header("Location: 404.html");
+    exit;
 }
-header("Access-Control-Allow-Origin: ".$AllowOrigin);
+
 // 从文件中获取JSON数据并解析为PHP数组
 $jsonData = file_get_contents('sentences/version.json');
 $data = json_decode($jsonData, true);
@@ -31,4 +37,3 @@ if ($_GET['do'] == "text") {
     $r = $randomHitokoto;
     echo json_encode($r, JSON_PRETTY_PRINT);
 }
-
