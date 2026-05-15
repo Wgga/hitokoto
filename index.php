@@ -7,6 +7,10 @@ const VALID_CATEGORIES = 'abcdefghijkl';
 $allowedOrigins = [
 	'https://artisticcode.cn',
 	'https://www.artisticcode.cn',
+	'http://localhost:3000',
+	'http://127.0.0.1:3000',
+	'http://localhost:12445',
+	'http://127.0.0.1:12445',
 ];
 
 sendSecurityHeaders();
