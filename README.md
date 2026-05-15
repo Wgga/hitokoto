@@ -1,82 +1,112 @@
 # hitokoto
 
-## 说明
+基于 [hitokoto-osc/sentences-bundle](https://github.com/hitokoto-osc/sentences-bundle) 的轻量 PHP 一言接口，适合自部署使用。
 
-本库fork于`lxyddice` 的 `hitokoto`, 本库只进行存储供本人使用，不提供API，如需API请前往[原作者 lxyddice](https://github.com/lxyddice)的 [hitokoto](https://github.com/lxyddice/hitokoto) Public
+当前本地语句包版本见 `sentences/version.json`。
 
-基于[https://github.com/hitokoto-osc/sentences-bundle](https://github.com/hitokoto-osc/sentences-bundle)的php版，快速部署
+## 参数
 
-## 参数说明
+### 句子类型
 
-#### 句子类型（参数）
+`c` 和 `type` 都可以指定类型，支持单个或多个字符，例如 `?c=a`、`?type=ai`。
 
-| 参数 | 说明               |
-| ---- | ------------------ |
-| a    | 动画               |
-| b    | 漫画               |
-| c    | 游戏               |
-| d    | 文学               |
-| e    | 原创               |
-| f    | 来自网络           |
-| g    | 其他               |
-| h    | 影视               |
-| j    | 网易云             |
-| k    | 哲学               |
-| i    | 诗词               |
-| l    | 抖机灵             |
+| 参数 | 类型 |
+| ---- | ---- |
+| a | 动画 |
+| b | 漫画 |
+| c | 游戏 |
+| d | 文学 |
+| e | 原创 |
+| f | 来自网络 |
+| g | 其他 |
+| h | 影视 |
+| i | 诗词 |
+| j | 网易云 |
+| k | 哲学 |
+| l | 抖机灵 |
 
-#### 返回编码类型（参数）
+### 输出格式
 
-| 参数 | 说明                                                  |
-| ---- | ----------------------------------------------------- |
-| text | 返回纯洁文本                                          |
-| json | 返回格式化后的 JSON 文本                              |
+`do` 和 `encode` 都可以指定输出格式，默认 `json`。
 
-#### 返回参数名称描述
+| 参数 | 说明 |
+| ---- | ---- |
+| json | 返回 JSON |
+| text | 只返回一言正文 |
 
-| id          | 一言标识                                                     |
-| ----------- | ------------------------------------------------------------ |
-| hitokoto    | 一言正文。编码方式 unicode。使用 utf-8。                     |
-| type        | 类型。请参考句子类型（参数）的表格                           |
-| from        | 一言的出处                                                   |
-| from_who    | 一言的作者                                                   |
-| creator     | 添加者                                                       |
-| creator_uid | 添加者用户标识                                               |
-| reviewer    | 审核员标识                                                   |
-| uuid        | 一言唯一标识；可以链接到 https://hitokoto.cn?uuid=[uuid] 查看这个一言的完整信息 |
-| commit_from | 提交方式                                                     |
-| created_at  | 添加时间                                                     |
-| length      | 句子长度                                                     |
+### 其他参数
 
-## 使用方法
+| 参数 | 说明 |
+| ---- | ---- |
+| min_length | 最小句子长度 |
+| max_length | 最大句子长度 |
+| charset | 响应编码，目前支持 `utf-8` |
+| callback | JSONP 回调函数名，仅 JSON 输出可用 |
+| health | 健康检查，传 `1` 返回语句包版本、分类数量和文件状态 |
 
-纯文本：https://api.lxyddice.top/api/yiyan?do=text
-
-返回示例：
+## 示例
 
 ```txt
-灭六国者，非秦也，六国也。
+/index.php
+/index.php?do=text
+/index.php?c=a&encode=json
+/index.php?type=ai&min_length=5&max_length=30
+/index.php?encode=json&callback=handleHitokoto
+/index.php?health=1
 ```
 
-json：https://api.lxyddice.top/api/yiyan
-
-返回示例：
+JSON 返回示例：
 
 ```json
 {
-    "id": 7285,
-    "uuid": "0e4d2234-2862-4acc-80ff-cfde681123c6",
-    "hitokoto": "灭六国者，非秦也，六国也。",
-    "type": "i",
-    "from": "阿房宫赋",
-    "from_who": "杜牧",
-    "creator": "朱佳熠",
-    "creator_uid": 9963,
-    "reviewer": 9975,
-    "commit_from": "web",
-    "created_at": "1627917866",
-    "length": 13
+  "id": 7285,
+  "uuid": "0e4d2234-2862-4acc-80ff-cfde681123c6",
+  "hitokoto": "灭六国者，非秦也，六国也。",
+  "type": "i",
+  "from": "阿房宫赋",
+  "from_who": "杜牧",
+  "creator": "朱佳熹",
+  "creator_uid": 9963,
+  "reviewer": 9975,
+  "commit_from": "web",
+  "created_at": "1627917866",
+  "length": 13
 }
 ```
 
-## 本库遵循 AGPL 开源授权，您在使用本库时需要遵循 AGPL 授权的相关规定。这通常意味着：您在使用、分发、修改、扩充等涉及本库的操作时您需要开源您的修改作品。
+错误返回示例：
+
+```json
+{
+  "error": "Invalid category.",
+  "status": 400
+}
+```
+
+## Docker
+
+```bash
+docker compose up -d
+```
+
+默认映射到 `http://127.0.0.1:8081`。
+
+## 更新语句包
+
+```powershell
+.\scripts\update-sentences.ps1
+```
+
+脚本会下载官方 `version.json` 和 `a-l` 分类文件，全部 JSON 校验通过后再替换本地文件，并生成 `sentences/manifest.json`。
+
+`manifest.json` 会记录每个分类的句子数，接口会优先使用它来完成健康检查和多分类加权随机。
+
+## 测试
+
+```bash
+php tests/run.php
+```
+
+## 授权
+
+本项目沿用原项目授权，见 [LICENSE](LICENSE)。使用、分发或修改时请遵守相关开源许可证要求。

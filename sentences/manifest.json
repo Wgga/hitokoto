@@ -1,0 +1,67 @@
+{
+    "bundle_version": "1.0.639",
+    "updated_at": 1778719168816,
+    "categories": {
+        "a": {
+            "path": "./sentences/a.json",
+            "count": 1446,
+            "ok": true
+        },
+        "b": {
+            "path": "./sentences/b.json",
+            "count": 109,
+            "ok": true
+        },
+        "c": {
+            "path": "./sentences/c.json",
+            "count": 996,
+            "ok": true
+        },
+        "d": {
+            "path": "./sentences/d.json",
+            "count": 1844,
+            "ok": true
+        },
+        "e": {
+            "path": "./sentences/e.json",
+            "count": 1419,
+            "ok": true
+        },
+        "f": {
+            "path": "./sentences/f.json",
+            "count": 957,
+            "ok": true
+        },
+        "g": {
+            "path": "./sentences/g.json",
+            "count": 746,
+            "ok": true
+        },
+        "h": {
+            "path": "./sentences/h.json",
+            "count": 187,
+            "ok": true
+        },
+        "i": {
+            "path": "./sentences/i.json",
+            "count": 737,
+            "ok": true
+        },
+        "j": {
+            "path": "./sentences/j.json",
+            "count": 124,
+            "ok": true
+        },
+        "k": {
+            "path": "./sentences/k.json",
+            "count": 301,
+            "ok": true
+        },
+        "l": {
+            "path": "./sentences/l.json",
+            "count": 76,
+            "ok": true
+        }
+    },
+    "total": 8942
+}

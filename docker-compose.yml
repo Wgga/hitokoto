@@ -1,0 +1,7 @@
+services:
+  hitokoto:
+    build: .
+    container_name: hitokoto-api
+    ports:
+      - "8081:80"
+    restart: unless-stopped
